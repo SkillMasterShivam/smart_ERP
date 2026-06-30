@@ -17,6 +17,7 @@ import authRoutes from './modules/auth/auth.routes';
 import companyRoutes from './modules/company/company.routes';
 import ledgerRoutes from './modules/ledger/ledger.routes';
 import groupRoutes from './modules/group/group.routes';
+import inventoryRoutes from './modules/inventory/inventory.routes';
 
 const app: Application = express();
 
@@ -56,6 +57,7 @@ app.use(`${API_PREFIX}/auth`, authRoutes);
 app.use(`${API_PREFIX}/companies`, companyRoutes);
 app.use(`${API_PREFIX}/ledgers`, ledgerRoutes);
 app.use(`${API_PREFIX}/groups`, groupRoutes);
+app.use(`${API_PREFIX}/inventory`, inventoryRoutes);
 
 // Unhandled Routes (404)
 app.use(notFoundHandler);

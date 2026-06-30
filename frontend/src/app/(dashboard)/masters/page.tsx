@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Briefcase, BookOpen } from 'lucide-react';
+import { Briefcase, BookOpen, Box, Scale } from 'lucide-react';
 
 export default function MastersPage() {
   return (
@@ -35,6 +35,33 @@ export default function MastersPage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-gray-500">Define the hierarchical structure of your accounting system.</p>
+            </CardContent>
+          </Link>
+        </Card>
+        <Card className="hover:shadow-md transition-shadow">
+          <Link href="/masters/inventory" className="block h-full">
+            <CardHeader>
+              <CardTitle className="flex items-center text-lg">
+                <Box className="mr-2 h-5 w-5 text-primary" />
+                Stock Items
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-gray-500">Manage your product catalog, SKUs, and inventory levels.</p>
+            </CardContent>
+          </Link>
+        </Card>
+
+        <Card className="hover:shadow-md transition-shadow">
+          <Link href="/masters/units" className="block h-full">
+            <CardHeader>
+              <CardTitle className="flex items-center text-lg">
+                <Scale className="mr-2 h-5 w-5 text-primary" />
+                Units of Measure
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-gray-500">Define measurement units (PCS, KG, LTR) for your stock items.</p>
             </CardContent>
           </Link>
         </Card>
