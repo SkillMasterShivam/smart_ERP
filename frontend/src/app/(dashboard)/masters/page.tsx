@@ -24,6 +24,20 @@ export default function MastersPage() {
             </CardContent>
           </Link>
         </Card>
+
+        <Card className="hover:shadow-md transition-shadow">
+          <Link href="/masters/groups" className="block h-full">
+            <CardHeader>
+              <CardTitle className="flex items-center text-lg">
+                <Briefcase className="mr-2 h-5 w-5 text-primary" />
+                Account Groups
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-gray-500">Define the hierarchical structure of your accounting system.</p>
+            </CardContent>
+          </Link>
+        </Card>
       </div>
     </div>
   );
