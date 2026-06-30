@@ -12,7 +12,7 @@ const setTokenCookie = (res: Response, token: string) => {
     expires: new Date(Date.now() + days * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: env.NODE_ENV === 'production',
-    sameSite: 'strict' as const,
+    sameSite: env.NODE_ENV === 'production' ? 'strict' as const : 'lax' as const,
   };
 
   res.cookie('jwt', token, cookieOptions);
@@ -47,6 +47,8 @@ export const logout = (req: Request, res: Response) => {
   res.cookie('jwt', 'loggedout', {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
+    secure: env.NODE_ENV === 'production',
+    sameSite: env.NODE_ENV === 'production' ? 'strict' as const : 'lax' as const,
   });
 
   return sendSuccess({
