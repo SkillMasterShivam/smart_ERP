@@ -18,6 +18,7 @@ const notFound_middleware_1 = require("./middlewares/notFound.middleware");
 const health_routes_1 = __importDefault(require("./modules/health/health.routes"));
 const auth_routes_1 = __importDefault(require("./modules/auth/auth.routes"));
 const company_routes_1 = __importDefault(require("./modules/company/company.routes"));
+const ledger_routes_1 = __importDefault(require("./modules/ledger/ledger.routes"));
 const app = (0, express_1.default)();
 // Security Middlewares
 app.use((0, helmet_1.default)()); // Set security HTTP headers
@@ -44,6 +45,7 @@ const API_PREFIX = '/api/v1';
 app.use(`${API_PREFIX}/health`, health_routes_1.default);
 app.use(`${API_PREFIX}/auth`, auth_routes_1.default);
 app.use(`${API_PREFIX}/companies`, company_routes_1.default);
+app.use(`${API_PREFIX}/ledgers`, ledger_routes_1.default);
 // Unhandled Routes (404)
 app.use(notFound_middleware_1.notFoundHandler);
 // Global Error Handler

@@ -15,6 +15,7 @@ import { notFoundHandler } from './middlewares/notFound.middleware';
 import healthRoutes from './modules/health/health.routes';
 import authRoutes from './modules/auth/auth.routes';
 import companyRoutes from './modules/company/company.routes';
+import ledgerRoutes from './modules/ledger/ledger.routes';
 
 const app: Application = express();
 
@@ -52,6 +53,7 @@ const API_PREFIX = '/api/v1';
 app.use(`${API_PREFIX}/health`, healthRoutes);
 app.use(`${API_PREFIX}/auth`, authRoutes);
 app.use(`${API_PREFIX}/companies`, companyRoutes);
+app.use(`${API_PREFIX}/ledgers`, ledgerRoutes);
 
 // Unhandled Routes (404)
 app.use(notFoundHandler);
