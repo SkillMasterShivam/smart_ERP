@@ -1,36 +1,59 @@
 'use client';
 
-import { useAuth } from '@/context/AuthContext';
-import { Button } from '@/components/ui/button';
+import { useCompany } from '@/context/CompanyContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { MENU_ITEMS } from '@/components/layout/sidebar';
+import Link from 'next/link';
 
 export default function DashboardPage() {
-  const { user, logout } = useAuth();
+  const { activeCompany } = useCompany();
+
+  // Group menu items by category
+  const groupedItems = MENU_ITEMS.filter(item => item.name !== 'Gateway').reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {} as Record<string, typeof MENU_ITEMS>);
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <Button onClick={logout} variant="destructive">
-          Logout
-        </Button>
+    <div className="space-y-8 max-w-7xl mx-auto">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-gray-900">Gateway of SmartERP</h1>
+        <p className="text-gray-500 mt-2">
+          {activeCompany?.name} | FY: {new Date(activeCompany?.fy_start || '').getFullYear()} - {new Date(activeCompany?.fy_start || '').getFullYear() + 1}
+        </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Welcome, {user?.name}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="text-gray-500">
-            This is a protected route. Only authenticated users can see this.
-          </p>
-          <div className="mt-4 p-4 bg-gray-100 rounded-md">
-            <pre className="text-sm overflow-auto">
-              {JSON.stringify(user, null, 2)}
-            </pre>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {Object.entries(groupedItems).map(([category, items]) => (
+          <Card key={category} className="shadow-sm border-gray-200">
+            <CardHeader className="bg-gray-50/50 border-b pb-4">
+              <CardTitle className="text-sm font-semibold uppercase tracking-wider text-gray-500">
+                {category}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-0">
+              <ul className="divide-y divide-gray-100">
+                {items.map((item) => (
+                  <li key={item.name}>
+                    <Link
+                      href={item.href}
+                      className="group flex items-center px-4 py-3 hover:bg-primary/5 transition-colors focus:outline-none focus:bg-primary/10"
+                    >
+                      <item.icon className="h-5 w-5 text-gray-400 group-hover:text-primary mr-3" />
+                      <span className="font-medium text-gray-700 group-hover:text-primary">
+                        {item.name}
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 }
